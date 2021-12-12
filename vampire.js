@@ -35,6 +35,41 @@ class Vampire {
     return this.numberOfVampiresFromOriginal < vampire.numberOfVampiresFromOriginal;
   }
 
+  /** Tree traversal methods **/
+
+  // Returns the vampire object with that name, or null if no vampire exists with that name
+  vampireWithName(name) {
+    if (name === this.name) {
+
+    }
+  }
+
+  // Returns the total number of vampires that exist
+  get totalDescendents() {
+    if (this.offspring.length === 0) {
+      return 0;
+    } else {
+      let totalNoOfDescendents = this.offspring.length;
+      for (const descendent of this.offspring) {
+        totalNoOfDescendents += descendent.totalDescendents;
+      }
+      return totalNoOfDescendents;
+    }  
+  }
+
+  // Returns an array of all the vampires that were converted after 1980
+  get allMillennialVampires() {
+    let noOfAllMillennialVampires = 0;
+    if (this.yearConverted > 1980) {
+      noOfAllMillennialVampires += 1;
+    }
+    for (const descendent of this.offspring) {
+      const millenialDownTheTree = descendent.allMillennialVampires();
+      noOfAllMillennialVampires = noOfAllMillennialVampires + millenialDownTheTree;
+    }
+    return noOfAllMillennialVampires;
+  }
+
   /** Stretch **/
 
   // Returns the closest common ancestor of two vampires.
